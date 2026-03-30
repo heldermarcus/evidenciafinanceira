@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Clientes | HM de Finanças{% endblock %}
+
+{% block content %}
+<header>
+    <h1>Meus Clientes</h1>
+    <a href="{% url 'customer_add' %}" role="button">+ Novo Cliente</a>
+</header>
+
+<article class="card">
+    <table class="striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Total Devido</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+            <tr>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.phone|default:"-" }}</td>
+                <td class="text-danger">R$ {{ customer.total_debt }}</td>
+                <td>
+                    <a href="#">Ver detalhes</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">Nenhum cliente cadastrado ainda.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</article>
+{% endblock %}

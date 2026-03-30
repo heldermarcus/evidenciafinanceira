@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}HM de Finanças{% endblock %}</title>
+    <!-- Pico CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <!-- Custom CSS (minimal) -->
+    <style>
+        :root {
+            --pico-primary: #10b981; /* Emerald green */
+            --pico-primary-hover: #059669;
+        }
+        body { padding-top: 2rem; }
+        .text-center { text-align: center; }
+        .alert-error { color: var(--pico-del-color); }
+        .alert-success { color: var(--pico-ins-color); }
+        .text-danger { color: #ef4444; }
+        .text-success { color: #10b981; }
+        .card { 
+            border: 1px solid var(--pico-muted-border-color); 
+            border-radius: var(--pico-border-radius); 
+            padding: var(--pico-spacing); 
+            margin-bottom: var(--pico-spacing);
+        }
+    </style>
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <div class="container">
+        {% if user.is_authenticated %}
+        <nav>
+            <ul>
+                <li><strong><a href="{% url 'dashboard' %}">HMF</a></strong></li>
+            </ul>
+            <ul>
+                <li>{{ user.username }}</li>
+                <li><a href="{% url 'account_logout' %}" role="button" class="outline">Sair</a></li>
+            </ul>
+        </nav>
+        <hr>
+        {% endif %}
+
+        {% if messages %}
+            {% for message in messages %}
+                <article class="{% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </article>
+            {% endfor %}
+        {% endif %}
+
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer class="text-center" style="margin-top: 2rem; color: var(--pico-muted-color);">
+            <small>&copy; {% now "Y" %} HM de Finanças. Todos os direitos reservados.</small>
+        </footer>
+    </div>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard | HM de Finanças{% endblock %}
+
+{% block content %}
+<header>
+    <h1>Olá, {{ user.username }}</h1>
+    <p>Resumo financeiro da loja.</p>
+</header>
+
+<div class="grid">
+    <article class="card text-center" style="border-left: 5px solid var(--pico-primary);">
+        <header>Conta Loja (PJ)</header>
+        <h2 style="margin-bottom: 0;">R$ {{ pj_account.balance|default:"0.00" }}</h2>
+        <small class="text-muted">{{ pj_account.name|default:"Caixa Loja" }}</small>
+    </article>
+    
+    <article class="card text-center" style="border-left: 5px solid #3b82f6;">
+        <header>Conta Pessoal (PF)</header>
+        <h2 style="margin-bottom: 0;">R$ {{ pf_account.balance|default:"0.00" }}</h2>
+        <small class="text-muted">{{ pf_account.name|default:"Pessoal" }}</small>
+    </article>
+</div>
+
+<!-- Quanto posso gastar hoje? -->
+<article class="card text-center" style="background-color: #f0fdf4; border-color: #bbf7d0;">
+    <h3>💸 Quanto posso gastar hoje?</h3>
+    <h1 class="text-success" style="font-size: 2.5rem;">R$ {{ can_spend_today|default:"0.00" }}</h1>
+    <p><small class="text-muted">Valor livre na conta PJ após descontar custos fixos e reserva de segurança.</small></p>
+    <a href="#" role="button" class="outline">Ver Cálculo Completo</a>
+</article>
+
+<!-- Botões Rápidos -->
+<div class="grid" style="margin-bottom: 2rem;">
+    <a href="#" role="button" style="background-color: var(--pico-ins-color); border-color: var(--pico-ins-color);">+ Nova Entrada (Venda)</a>
+    <a href="#" role="button" style="background-color: var(--pico-del-color); border-color: var(--pico-del-color);">- Nova Saída (Gasto)</a>
+</div>
+
+<div class="grid">
+    <div>
+        <article class="card">
+            <header>Inadimplência - Top 5 Devedores</header>
+            {% if top_debtors %}
+                <ul>
+                {% for customer in top_debtors %}
+                    <li>
+                        <strong>{{ customer.name }}</strong>: R$ {{ customer.total_debt }}
+                        <a href="#" style="float:right;">Cobrar</a>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>Nenhum cliente inadimplente no momento! 🎉</p>
+            {% endif %}
+            <footer>
+                <a href="#">Ver todos os devedores</a>
+            </footer>
+        </article>
+    </div>
+    
+    <div>
+        <article class="card">
+            <header>Últimas Movimentações (PJ)</header>
+            <p><small>Em breve: lista das últimas 5 transações...</small></p>
+            <footer>
+                <a href="#">Ver Relatório Mensal</a>
+            </footer>
+        </article>
+    </div>
+</div>
+
+{% endblock %}

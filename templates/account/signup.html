@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Criar Conta | HM de Finanças{% endblock %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 0 auto;">
+    <article class="card">
+        <header>
+            <h2>Criar Conta</h2>
+            <p>Controle financeiro simples e rápido</p>
+        </header>
+
+        <form method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <button type="submit">Cadastrar</button>
+        </form>
+
+        <footer>
+            <small>Já tem conta? <a href="{% url 'account_login' %}">Entrar</a></small>
+        </footer>
+    </article>
+</div>
+{% endblock %}

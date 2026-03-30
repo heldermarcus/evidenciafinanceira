@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Entrar | HM de Finanças{% endblock %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 0 auto;">
+    <article class="card">
+        <header>
+            <h2>Entrar</h2>
+            <p>Acesse seu controle financeiro</p>
+        </header>
+
+        <form method="post" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <button type="submit">Entrar</button>
+        </form>
+
+        <footer>
+            <small>Não tem conta? <a href="{% url 'account_signup' %}">Cadastre-se</a></small>
+        </footer>
+    </article>
+</div>
+{% endblock %}
