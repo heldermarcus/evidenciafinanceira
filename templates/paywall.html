@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔒 Acesso Bloqueado - HM Finance</title>
+    <title>🔒 Acesso Bloqueado - Evidência Financeira</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700;800&display=swap">
@@ -215,30 +215,44 @@
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
             </div>
             
-            <div class="plan-badge">Único Plano Disponível</div>
-            <h1>Acesso Restrito</h1>
-            <p class="subtitle">Você precisa de uma assinatura ativa para acessar o HM Finance.</p>
+            {% if not user.is_authenticated %}
+                <div class="plan-badge">Leva menos de 1 minuto</div>
+                <h1>Crie sua conta</h1>
+                <p class="subtitle">Cadastre-se para continuar para o Evidência Financeira.</p>
 
-            <div class="price-container">
-                <span class="price"><span class="currency">R$</span>49<span style="font-size: 2rem;">,90</span></span>
-                <span class="period">/mês</span>
+                <div style="margin-bottom: 24px;">
+                    <a href="{% url 'account_signup' %}" class="cta-button">Criar conta grátis</a>
+                    <a href="{% url 'account_login' %}" class="secondary-link">Já tenho conta (Login)</a>
+                </div>
+            {% else %}
+                <div class="plan-badge">Único Plano Disponível</div>
+                <h1>Acesso Restrito</h1>
+                <p class="subtitle">Olá, <strong>{{ user.first_name|default:user.username }}</strong>! Você precisa ativar sua assinatura para acessar o sistema.</p>
+
+                <div class="price-container">
+                    <span class="price"><span class="currency">R$</span>49<span style="font-size: 2rem;">,90</span></span>
+                    <span class="period">/mês</span>
+                </div>
+
+                <form action="{% url 'create_checkout' %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="cta-button">Ativar acesso agora</button>
+                    <p style="font-size: 0.75rem; color: #718096; margin-top: 10px;">Pagamento via AbacatePay (Pix)</p>
+                </form>
+
+                <a href="mailto:suporte@hmfinancas.com.br" class="secondary-link">Dúvidas? Fale conosco</a>
+            {% endif %}
+
+            <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid #edf2f7;">
+                <p style="font-weight: 700; font-size: 0.85rem; color: #1A365D; text-transform: uppercase; margin-bottom: 16px;">O que está incluso:</p>
+                <ul class="feature-list" style="margin-bottom: 0;">
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Transações ilimitadas</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Relatório de Devedores</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Gestão Integral de Vendas</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Controle de Custos Fixos</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Relatórios Avançados (Fluxo, DRE)</li>
+                </ul>
             </div>
-
-            <ul class="feature-list">
-                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Transações ilimitadas</li>
-                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Relatório de Devedores</li>
-                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Gestão Integral de Vendas</li>
-                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Controle de Custos Fixos</li>
-                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Relatórios Avançados (Fluxo, DRE)</li>
-                <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> Suporte Prioritário</li>
-            </ul>
-
-            <form action="{% url 'create_checkout' %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="cta-button">Pagar com AbacatePay</button>
-            </form>
-
-            <a href="mailto:suporte@hmfinancas.com.br" class="secondary-link">Já possui assinatura? Fale conosco</a>
         </div>
 
         <div class="faq">

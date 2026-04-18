@@ -134,7 +134,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 logger = logging.getLogger(__name__)
 
-@login_required
 def paywall_view(request):
     if request.user.has_active_subscription:
         return redirect('dashboard')
