@@ -273,7 +273,6 @@
     <div class="settings-tabs" role="tablist">
         <button class="settings-tab active" onclick="switchTab('store')" role="tab">🏪 Minha Loja</button>
         <button class="settings-tab" onclick="switchTab('categories')" role="tab">📁 Categorias</button>
-        <button class="settings-tab" onclick="switchTab('plan')" role="tab">💳 Plano</button>
         <button class="settings-tab" onclick="switchTab('profile')" role="tab">👤 Meu Perfil</button>
         <button class="settings-tab" onclick="switchTab('help')" role="tab">❓ Ajuda</button>
     </div>
@@ -387,30 +386,6 @@
     <!-- =====================
          TAB: PLANO & PAGAMENTO
          ===================== -->
-    <div id="tab-plan" class="settings-panel">
-        <div class="settings-card">
-            <h3>Seu Plano</h3>
-            <p class="desc">Gerencie sua assinatura do Evidência Financeira.</p>
-
-            <div class="plan-current">
-                <div class="plan-icon">
-                    🚀
-                </div>
-                <div class="plan-info">
-                    <h4>Assinatura Evidência Financeira</h4>
-                    <p>Status: Ativa · Próxima renovação: Em 30 dias</p>
-                </div>
-            </div>
-
-            <div style="background: #f8fafc; border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; margin-top: 1rem;">
-                <h4 style="margin: 0 0 10px; font-size: 1rem;">Período e Valor</h4>
-                <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">Sua assinatura é renovada automaticamente pelo valor de <strong>R$ 49,90/mês</strong>.</p>
-                <div class="btn-row" style="margin-top: 1.5rem;">
-                    <a href="mailto:suporte@hmfinancas.com.br?subject=Cancelamento de Assinatura" class="btn-secondary" style="font-size: 0.8rem;">Solicitar Cancelamento</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- =====================
          TAB: MEU PERFIL
@@ -538,15 +513,6 @@
                 </div>
             </div>
 
-            <div class="faq-item" onclick="this.classList.toggle('open')">
-                <div class="faq-question">
-                    Como funciona a assinatura única?
-                    <span class="faq-arrow">▼</span>
-                </div>
-                <div class="faq-answer">
-                    O Evidência Financeira oferece um plano único com acesso a todas as ferramentas por R$ 49,90/mês. A renovação é automática a cada 30 dias via AbacatePay.
-                </div>
-            </div>
         </div>
 
         <!-- Contato -->

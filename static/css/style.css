@@ -314,6 +314,20 @@ h1, h2, h3, h4, h5, h6, .page-title h1, .dash-card-value {
 }
 .card-orange .dash-card-title { color: #fef3c7; }
 
+/* Ensure value and subtitle are light in dark cards */
+.card-dark .dash-card-value, 
+.card-green .dash-card-value, 
+.card-orange .dash-card-value {
+    color: #FFFFFF !important;
+}
+
+.card-dark .dash-card-subtitle,
+.card-green .dash-card-subtitle,
+.card-orange .dash-card-subtitle {
+    color: #FFFFFF !important;
+    opacity: 1 !important;
+}
+
 /* =======================================
    OVERDUE / DEBTORS SECTION
    ======================================= */
