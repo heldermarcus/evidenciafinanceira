@@ -93,16 +93,19 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 import dj_database_url
 
+DATABASE_URL = env('DATABASE_URL', default=f"sqlite:///{BASE_DIR}/db.sqlite3")
+
 DATABASES = {
     'default': dj_database_url.config(
-        default=env('DATABASE_URL', default=f"sqlite:///{BASE_DIR}/db.sqlite3"),
+        default=DATABASE_URL,
         conn_max_age=600,
-        ssl_require=True,
+        ssl_require='sqlite' not in DATABASE_URL,
     )
 }
 
 # Necessário para o Pooler do Supabase em modo transaction
-DATABASES['default']['DISABLE_SERVER_SIDE_CURSORS'] = True
+if 'sqlite' not in DATABASE_URL:
+    DATABASES['default']['DISABLE_SERVER_SIDE_CURSORS'] = True
 
 
 # Password validation
