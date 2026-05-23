@@ -20,7 +20,7 @@ class Category(models.Model):
 class Customer(models.Model):
     store = models.ForeignKey(Store, on_delete=models.CASCADE, related_name='customers')
     name = models.CharField(max_length=200, verbose_name="Nome")
-    cpf = models.CharField(max_length=14, null=True, blank=True, verbose_name="CPF")
+    cpf = models.CharField(max_length=20, null=True, blank=True, verbose_name="CPF/CNPJ")
     phone = models.CharField(max_length=20, null=True, blank=True, verbose_name="Telefone")
     address = models.TextField(null=True, blank=True, verbose_name="Endereço")
     total_debt = models.DecimalField(max_digits=12, decimal_places=2, default=0)
