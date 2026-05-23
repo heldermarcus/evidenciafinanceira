@@ -1,4 +1,4 @@
-﻿{% extends 'base.html' %}
+{% extends 'base.html' %}
 {% block title %}{% if object %}Editar Venda{% else %}Nova Venda{% endif %} | Saldon{% endblock %}
 
 {% block content %}
@@ -10,7 +10,25 @@
 
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            <p>
+                {% if field.name == 'customer' %}
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }} 
+                        <small style="float: right;"><a href="{% url 'customer_add' %}?next={{ request.path }}">Cadastrar novo</a></small>
+                    </label>
+                    {{ field }}
+                {% else %}
+                    {{ field.label_tag }}
+                    {{ field }}
+                {% endif %}
+                {{ field.errors }}
+                {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                {% endif %}
+            </p>
+        {% endfor %}
         
         <div class="grid">
             <a href="{% url 'sale_list' %}" role="button" class="outline secondary">Cancelar</a>
